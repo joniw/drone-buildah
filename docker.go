@@ -38,6 +38,9 @@ type (
 		CacheFrom   []string // Docker build cache-from. It is a NOOP in buildah
 		Compress    bool     // Docker build compress
 		Repo        string   // Docker build repository
+		OS          string   // Buildah os argument
+		Arch        string   // Buildah arch argument
+		Variant     string   // Buildah variant argument
 		LabelSchema []string // label-schema Label map
 		AutoLabel   bool     // auto-label bool
 		Labels      []string // Label map
@@ -231,6 +234,15 @@ func commandBuild(build Build) *exec.Cmd {
 	}
 	if build.Quiet {
 		args = append(args, "--quiet")
+	}
+	if build.OS != "" {
+		args = append(args, "--os", build.OS)
+	}
+	if build.Arch != "" {
+		args = append(args, "--arch", build.Arch)
+	}
+	if build.Variant != "" {
+		args = append(args, "--variant", build.Variant)
 	}
 	if build.Layers {
 		args = append(args, "--layers=true")

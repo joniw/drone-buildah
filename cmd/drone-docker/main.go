@@ -116,6 +116,21 @@ func main() {
 			Usage:  "docker repository",
 			EnvVar: "PLUGIN_REPO",
 		},
+		cli.StringFlag{
+			Name:   "os",
+			Usage:  "buildah os",
+			EnvVar: "PLUGIN_OS",
+		},
+		cli.StringFlag{
+			Name:   "arch",
+			Usage:  "buildah arch",
+			EnvVar: "PLUGIN_ARCH",
+		},
+			cli.StringFlag{
+			Name:   "variant",
+			Usage:  "buildah variant",
+			EnvVar: "PLUGIN_VARIANT",
+		},
 		cli.StringSliceFlag{
 			Name:   "custom-labels",
 			Usage:  "additional k=v labels",
@@ -254,6 +269,9 @@ func run(c *cli.Context) error {
 			CacheFrom:   c.StringSlice("cache-from"),
 			Compress:    c.Bool("compress"),
 			Repo:        c.String("repo"),
+			OS:          c.String("os"),
+			Arch:        c.String("arch"),
+			Variant:     c.String("variant"),
 			Labels:      c.StringSlice("custom-labels"),
 			LabelSchema: c.StringSlice("label-schema"),
 			AutoLabel:   c.BoolT("auto-label"),
